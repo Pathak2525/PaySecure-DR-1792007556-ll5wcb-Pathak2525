@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= title %></title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+  <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+  <header class="border-b border-slate-800 px-6 py-4 flex justify-between">
+    <h1 class="text-xl font-bold">Runbook <span class="text-emerald-400">Explorer</span> (<%= count %>)</h1>
+    <a class="text-sm hover:text-emerald-400" href="/">&larr; Dashboard</a>
+  </header>
+  <div id="root" class="max-w-6xl mx-auto p-6"></div>
+  <script type="text/babel" src="/js/react-app.jsx"></script>
+</body>
+</html>

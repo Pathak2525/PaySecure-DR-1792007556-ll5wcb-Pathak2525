@@ -1,0 +1,20 @@
+import { Router } from 'express';
+import { asyncHandler as h } from '../middleware/error.js';
+import * as c from '../controllers/api.controller.js';
+
+const r = Router();
+r.get('/regions', h(c.listRegions));
+r.patch('/regions/:code/metrics', h(c.updateRegionMetrics));
+r.post('/failover/evaluate', h(c.evaluateFailover));
+r.post('/failover/execute', h(c.executeFailover));
+r.get('/incidents', h(c.listIncidents));
+r.get('/runbooks', h(c.listRunbooks));
+r.get('/runbooks/:id', h(c.getRunbook));
+r.get('/analysis/latency-budget', c.latencyBudget);
+r.get('/analysis/failover-timing', c.timing);
+r.get('/analysis/split-brain', c.splitBrain);
+r.get('/analysis/downtime-cost', c.cost);
+r.get('/analysis/fmea', c.fmea);
+r.post('/transactions', h(c.createTransaction));
+r.route('/drills').get(h(c.listDrills)).post(h(c.logDrill));
+export default r;

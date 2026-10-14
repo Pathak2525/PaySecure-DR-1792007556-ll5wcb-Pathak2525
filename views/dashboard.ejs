@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#080a13"/><title><%= title %></title>
+  <link rel="stylesheet" href="/css/dashboard.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <a class="brand" href="/"><span class="brand-mark">⌁</span><span>PaySecure<small>DR COMMAND CENTER</small></span></a>
+    <div class="nav-wrap"><div class="nav-label">WORKSPACE</div><nav class="nav">
+      <a class="active" href="/"><span class="ico">▦</span> CTO Overview</a>
+      <a href="#regionsPanel"><span class="ico">◉</span> Cloud Regions</a>
+      <a href="#incidentsPanel"><span class="ico">⚑</span> Incidents</a>
+      <a href="/runbooks"><span class="ico">☷</span> Runbook Explorer</a>
+      <a href="#drControls"><span class="ico">⇄</span> Failover Control</a>
+    </nav></div>
+    <div class="nav-wrap"><div class="nav-label">RELIABILITY</div><nav class="nav">
+      <a href="#analyticsPanel"><span class="ico">⌁</span> DR Analytics</a>
+      <a href="#riskPanel"><span class="ico">◇</span> Risk &amp; FMEA</a>
+      <a href="#transactionPanel"><span class="ico">▤</span> Payment Safety</a>
+    </nav></div>
+    <div class="side-bottom"><span class="live-dot"></span><strong>Platform services</strong><p>Dashboard API connected when backend is available. Metrics are read from your project API.</p></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div class="crumb">Workspace / <strong>CTO Overview</strong></div><div class="top-actions"><input class="search" id="globalSearch" placeholder="⌕  Search incidents / regions..." aria-label="Search dashboard"/><span class="pill"><span class="live-dot"></span> SYSTEM MONITOR</span><button class="btn" id="refreshBtn">↻ Refresh</button></div></header>
+    <div class="content">
+      <div class="page-head"><div><div class="eyebrow">RESILIENCE OPERATIONS</div><h1>CTO Overview</h1><p>Multi-region payment resilience, cloud health and disaster recovery readiness.</p></div><div class="head-buttons"><a class="btn" href="/runbooks">☷ Runbooks</a><button class="btn primary" id="reportBtn">↓ Export snapshot</button></div></div>
+      <section class="grid stats">
+        <article class="card"><div class="stat-top"><span>REGIONS HEALTHY</span><span class="stat-icon">◉</span></div><div class="stat-value" id="healthyStat">— / —</div><div class="stat-foot"><span class="good">● Live API data</span> · Region availability</div></article>
+        <article class="card"><div class="stat-top"><span>PAYMENT SUCCESS RATE</span><span class="stat-icon">↗</span></div><div class="stat-value" id="successStat">—</div><div class="stat-foot">Reported by region metrics</div></article>
+        <article class="card"><div class="stat-top"><span>REPLICATION LAG</span><span class="stat-icon">⇄</span></div><div class="stat-value" id="lagStat">—</div><div class="stat-foot">Target RPO: <span class="good">60,000 ms</span></div></article>
+        <article class="card"><div class="stat-top"><span>OPEN INCIDENTS</span><span class="stat-icon">⚑</span></div><div class="stat-value" id="incidentStat">—</div><div class="stat-foot">Detected or mitigating</div></article>
+      </section>
+      <section class="grid layout-main">
+        <article class="card" id="analyticsPanel"><div class="card-title"><div><h2>Service Reliability Overview</h2><p>Region health and payment success-rate snapshot</p></div><span class="pill"><span class="live-dot"></span> API STATUS</span></div><div class="chart-wrap"><canvas id="healthChart" aria-label="Region health chart"></canvas></div></article>
+        <article class="card" id="regionsPanel"><div class="card-title"><div><h2>Cloud Region Health</h2><p>Primary and recovery region status</p></div><a class="muted" href="#regionsPanel">View all ↗</a></div><div class="region-list" id="regionList"><div class="empty">Loading region metrics…</div></div></article>
+      </section>
+      <section class="grid lower-grid">
+        <article class="card" id="incidentsPanel"><div class="card-title"><div><h2>Recent Incidents</h2><p>Latest recovery events and operational alerts</p></div><span class="pill warn" id="incidentBadge">LOADING</span></div><div class="table-wrap"><table><thead><tr><th>SEVERITY</th><th>INCIDENT</th><th>REGION FLOW</th><th>STATUS</th><th>TIME</th></tr></thead><tbody id="incidentBody"><tr><td colspan="5" class="empty">Loading incidents…</td></tr></tbody></table></div></article>
+        <article class="card" id="riskPanel"><div class="card-title"><div><h2>Risk &amp; FMEA</h2><p>Failure mode prioritization (RPN)</p></div><span class="pill warn">RISK REGISTER</span></div><div class="table-wrap"><table><thead><tr><th>COMPONENT</th><th>FAILURE MODE</th><th>RPN</th></tr></thead><tbody id="fmeaBody"><tr><td colspan="3" class="empty">Loading risk register…</td></tr></tbody></table></div></article>
+      </section>
+      <section class="grid actions-grid" id="drControls">
+        <article class="card action-card"><div class="action-icon">⇄</div><div><h3>Failover Decision Engine</h3><p>Evaluate health signals before making a recovery decision. Execution changes your project database state.</p><button class="btn" id="evaluateBtn">Evaluate readiness</button></div></article>
+        <article class="card action-card" id="transactionPanel"><div class="action-icon">▤</div><div><h3>Payment Idempotency Test</h3><p>Send the same test payment twice using one idempotency key and verify that only one record is created.</p><button class="btn" id="idemBtn">Run safety test</button></div></article>
+        <article class="card action-card"><div class="action-icon">◷</div><div><h3>Recovery Runbooks</h3><p>Review step-by-step recovery procedures and use checklist mode for tabletop DR drills.</p><a class="btn" href="/runbooks">Open runbooks ↗</a></div></article>
+      </section>
+      <div class="footer"><span>PaySecure DR Command Center · Operations dashboard</span><span>Last refreshed: <strong id="lastUpdated">Not yet refreshed</strong> · <span class="mono">RPO 60s / RTO 300s target</span></span></div>
+    </div>
+  </main>
+</div>
+<div id="toast" class="toast hidden" role="status"></div>
+<script type="module" src="/js/dashboard.js"></script>
+</body></html>
